@@ -19,7 +19,7 @@ usersController.create = async(req,res) => {
         res.json({message: 'user created', user, userId: encryptedId})
     } catch (error) {
         res.status(400)
-        res.json({error: 'email is already taken'})
+        res.json({error})
     }
 }
 
