@@ -12,8 +12,17 @@ app.use(require('cors')())
 const usersRoutes = require('./routes/usersRoutes')
 app.use('/users', usersRoutes)
 
+const productsRoutes = require('./routes/productsRoutes')
+app.use('/products', productsRoutes)
+
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`server listening on ${PORT}`);
   routesReport.print()
 })
+
+
+
+
+
+
