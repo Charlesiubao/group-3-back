@@ -18,6 +18,7 @@ usersController.create = async(req,res) => {
 
         res.json({message: 'user created', user, userId: encryptedId})
     } catch (error) {
+        console.log(error)
         res.status(400)
         res.json({error})
     }
@@ -62,6 +63,34 @@ usersController.verify = async (req, res) => {
     } catch (error) {
         res.json({error})
     }
+  }
+
+  usersController.addToCart = async (req, res) => {
+      try{
+          const decryptedId = jwt.verify(req.headers.authorization, process.env.JWT_SECRET)
+          let user = await models.user.findOne({
+              where: {
+                  id: decryptedId.userId
+                }
+          })
+          let product = await models.product.findOne({
+              where:{
+                  id: req.body.productId
+              }
+          })
+
+
+          await user.addProduct(product)
+
+          let cart = await user.getProducts()
+  
+
+          res.json({user: user, cart: cart})
+
+      }catch(error){
+          console.log(error)
+          res.json({error})
+      }
   }
 
 module.exports = usersController
