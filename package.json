@@ -1,0 +1,23 @@
+{
+  "name": "group-3-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Charlesiubao/group-3-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Charlesiubao/group-3-back/issues"
+  },
+  "homepage": "https://github.com/Charlesiubao/group-3-back#readme",
+  "dependencies": {
+    "pg": "^8.6.0",
+    "sequelize": "^6.6.2"
+  }
+}
