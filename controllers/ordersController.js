@@ -43,5 +43,21 @@ ordersController.create = async (req, res) => {
     }
 }
 
+ordersController.findOne = async (req, res) => {
+    try{
+        let order = await models.order.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        let products = await order.getProducts()
+        res.json({order: order, products: products})
+
+    }catch(error){
+        console.log(error)
+        res.json({error})
+    }
+}
+
 
 module.exports = ordersController
