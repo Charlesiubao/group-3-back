@@ -2,6 +2,7 @@ const models = require('../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const ordersRoutes = require('../routes/ordersRoutes')
+const product = require('../models/product')
 
 const ordersController = {}
 
@@ -21,10 +22,20 @@ ordersController.create = async (req, res) => {
           })
 
           let cart = await user.getProducts()
-          for(product of cart){
-              await order.addProduct(product)
+          for(i=0; i<cart.length; i++){
+              console.log(cart[i])
+              //add each product to order
+              //await order.addProduct(product)
+              let join = await models.product_order.create({
+                  productId: cart[i].id,
+                  orderId: order.id
+              })
+
+              console.log("PRODUCT_ORDER JOIN")
+              console.log(join)
+
               //clear cart
-              await user.removeProduct(product)
+              await user.removeProduct(cart[i])
           }
 
 
