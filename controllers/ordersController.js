@@ -70,9 +70,14 @@ ordersController.findOne = async (req, res) => {
     }
 }
 
-ordersController.findAll = async (req, res) => {
+ordersController.findUsersOrders = async (req, res) => {
     try{
-        let order = await models.order.findAll()
+        const decryptedId = jwt.verify(req.headers.authorization, process.env.JWT_SECRET)
+        let order = await models.order.findAll({
+            where: {
+                userId: decryptedId.userId
+            }
+        })
         res.json({order: order})
     }catch(error){
         console.log(error)
