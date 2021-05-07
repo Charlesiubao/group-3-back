@@ -5,6 +5,7 @@ const ordersRoutes = express.Router()
 
 ordersRoutes.post('/', ordersController.create)
 ordersRoutes.get('/:id', ordersController.findOne)
+ordersRoutes.get('/', ordersController.findAll)
 
 
 module.exports = ordersRoutes
