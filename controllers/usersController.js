@@ -79,9 +79,18 @@ usersController.verify = async (req, res) => {
                   id: req.body.productId
               }
           })
+       
+         // await user.addProduct(product)
+
+          
+          let join = await models.cart.create({
+                productId: req.body.productId,
+                userId: decryptedId.userId
+          })
 
 
-          await user.addProduct(product)
+
+
 
           let cart = await user.getProducts()
   
