@@ -1,6 +1,7 @@
 const models = require('../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const usersRoutes = require('../routes/usersRoutes')
 
 const usersController = {}
 
@@ -86,6 +87,45 @@ usersController.verify = async (req, res) => {
   
 
           res.json({user: user, cart: cart})
+
+      }catch(error){
+          console.log(error)
+          res.json({error})
+      }
+  }
+
+  usersController.getCart = async (req, res) => {
+      try{
+        const decryptedId = jwt.verify(req.headers.authorization, process.env.JWT_SECRET)
+        let user = await models.user.findOne({
+            where: {
+                id: decryptedId.userId
+              }
+        })
+        let cart = await user.getProducts()
+        res.json({user: user, cart: cart})
+      }catch(error){
+          console.log(error)
+          res.json({error})
+      }
+  }
+
+  usersController.removeProduct = async (req, res) => {
+      try{
+        const decryptedId = jwt.verify(req.headers.authorization, process.env.JWT_SECRET)
+        let user = await models.user.findOne({
+            where: {
+                id: decryptedId.userId
+              }
+        })
+        let product = await models.product.findOne({
+            where:{
+                id: req.params.id
+            }
+        })
+        await user.removeProduct(product)
+        let cart = await user.getProducts()
+        res.json({user: user, newCart: cart, removedProduct: product})
 
       }catch(error){
           console.log(error)
