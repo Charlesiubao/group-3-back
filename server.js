@@ -15,6 +15,9 @@ app.use('/users', usersRoutes)
 const productsRoutes = require('./routes/productsRoutes')
 app.use('/products', productsRoutes)
 
+const ordersRoutes = require('./routes/ordersRoutes')
+app.use('/orders', ordersRoutes)
+
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`server listening on ${PORT}`);
