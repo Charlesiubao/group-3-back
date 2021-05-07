@@ -59,5 +59,15 @@ ordersController.findOne = async (req, res) => {
     }
 }
 
+ordersController.findAll = async (req, res) => {
+    try{
+        let order = await models.order.findAll()
+        res.json({order: order})
+    }catch(error){
+        console.log(error)
+        res.json({error})
+    }
+}
+
 
 module.exports = ordersController
